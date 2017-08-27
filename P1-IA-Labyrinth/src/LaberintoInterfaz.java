@@ -20,6 +20,8 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     private int fin=0; 
     private int posfin=0;
     private int posini=0;
+    private int filas;
+    private int columnas;
 
     public LaberintoInterfaz() {
 
@@ -55,11 +57,8 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
         });
 
         panel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                panelKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                panelKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                panelKeyReleased(evt);
             }
         });
         panel.setLayout(new java.awt.GridLayout(1, 0));
@@ -116,8 +115,6 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         inicio=0;
         fin=0;
-        int filas;
-        int columnas;
         indice=0;
         posfin=0;
         posini=0;
@@ -214,12 +211,12 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     etiqueta.addMouseListener(new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
                         if (fin==0 && e.isMetaDown()==true){
-                            etiqueta.setText("x");
+                            etiqueta.setText("F");
                             fin = 1;
                             posfin = celdas.indexOf(etiqueta);
                             System.out.println(posfin);
                         }else if(inicio==0 && e.isMetaDown()==false){
-                            etiqueta.setText("i");
+                            etiqueta.setText("IX");
                             inicio = 1;
                             posini = celdas.indexOf(etiqueta);
                             System.out.println(posini);
@@ -274,12 +271,12 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     etiqueta.addMouseListener(new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
                         if (fin==0 && e.isMetaDown()==true){
-                            etiqueta.setText("x");
+                            etiqueta.setText("F");
                             fin = 1;
                             posfin = celdas.indexOf(etiqueta);
                             System.out.println(posfin);
                         }else if(inicio==0 && e.isMetaDown()==false){
-                            etiqueta.setText("i");
+                            etiqueta.setText("IX");
                             inicio = 1;
                             posini = celdas.indexOf(etiqueta);
                             System.out.println(posini);
@@ -330,12 +327,12 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                      etiqueta.addMouseListener(new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
                         if (fin==0 && e.isMetaDown()==true){
-                            etiqueta.setText("x");
+                            etiqueta.setText("F");
                             fin = 1;
                             posfin = celdas.indexOf(etiqueta);
                             System.out.println(posfin);
                         }else if(inicio==0 && e.isMetaDown()==false){
-                            etiqueta.setText("i");
+                            etiqueta.setText("IX");
                             inicio = 1;
                             posini = celdas.indexOf(etiqueta);
                             System.out.println(posini);
@@ -386,12 +383,12 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                      etiqueta.addMouseListener(new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
                         if (fin==0 && e.isMetaDown()==true){
-                            etiqueta.setText("x");
+                            etiqueta.setText("F");
                             fin = 1;
                             posfin = celdas.indexOf(etiqueta);
                             System.out.println(posfin);
                         }else if(inicio==0 && e.isMetaDown()==false){
-                            etiqueta.setText("i");
+                            etiqueta.setText("IX");
                             inicio = 1;
                             posini = celdas.indexOf(etiqueta);
                             System.out.println(posini);
@@ -443,12 +440,12 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                      etiqueta.addMouseListener(new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
                         if (fin==0 && e.isMetaDown()==true){
-                            etiqueta.setText("x");
+                            etiqueta.setText("F");
                             fin = 1;
                             posfin = celdas.indexOf(etiqueta);
                             System.out.println(posfin);
                         }else if(inicio==0 && e.isMetaDown()==false){
-                            etiqueta.setText("i");
+                            etiqueta.setText("IX");
                             inicio = 1;
                             posini = celdas.indexOf(etiqueta);
                             System.out.println(posini);
@@ -461,6 +458,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             celdas.add(etiqueta);
             indice++;
             panel.updateUI();
+            panel.requestFocusInWindow(); //Para poder usar las flechas para mover el personaje
         }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Error al crear el terreno!\n Colocaste un salto de mas o un valor mal");
@@ -486,18 +484,56 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                    // TODO add your handling code here:
     }//GEN-LAST:event_editarActionPerformed
 
-    private void panelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelKeyPressed
-        System.out.print(evt.getKeyChar());
-        if (evt.getKeyCode()==KeyEvent.VK_UP){
-            JLabel aux = celdas.get(posini+1);
-            aux.setText(aux.getText()+"o");
-            celdas.set(posini+1, aux);
+    private void panelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelKeyReleased
+        String auxup="NULL";
+        String auxdown="NULL";
+        String auxright="NULL";
+        String auxleft="NULL";
+        int decisiones=0;
+        if (posini>columnas-1){
+            auxup = celdas.get(posini-columnas).getToolTipText();
         }
-    }//GEN-LAST:event_panelKeyPressed
-
-    private void panelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelKeyTyped
-
-    }//GEN-LAST:event_panelKeyTyped
+        if (posini<(columnas*(filas-1)-1)){
+            auxdown = celdas.get(posini+columnas).getToolTipText();
+        }
+        if (posini%(columnas-1)!=0){
+            auxright = celdas.get(posini+1).getToolTipText();
+        }
+        if (posini%(columnas)!=0){
+            auxleft = celdas.get(posini-1).getToolTipText();
+        }
+        if (evt.getKeyCode()==KeyEvent.VK_RIGHT){
+            if (auxright!="NULL"&&auxright!="mountain"){
+                JLabel anterior = celdas.get(posini);
+                anterior.setText(anterior.getText().replace("X", "")+"V");
+                celdas.set(posini++, anterior);
+                auxup="NULL";
+                auxdown="NULL";
+                auxright="NULL";
+                if (posini>columnas-1){
+                    auxup = celdas.get(posini-columnas).getToolTipText();
+                    decisiones=(auxup!="mountain")?decisiones+1:decisiones;
+                }
+                if (posini<(columnas*(filas-1)-1)){
+                    auxdown = celdas.get(posini+columnas).getToolTipText();
+                    decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
+                }
+                if (posini%(columnas-1)!=0){
+                    auxright = celdas.get(posini+1).getToolTipText();
+                    decisiones=(auxright!="mountain")?decisiones+1:decisiones;
+                }
+                if (decisiones>1){
+                    JLabel actual = celdas.get(posini);
+                    actual.setText(actual.getText()+"OX");
+                    celdas.set(posini, actual);
+                }else{
+                    JLabel actual = celdas.get(posini);
+                    actual.setText(actual.getText()+"X");
+                    celdas.set(posini, actual);
+                }
+            }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
+        }else{}
+    }//GEN-LAST:event_panelKeyReleased
 
     String Tipo="";
     public String mouseClicked(MouseEvent evento) {
@@ -532,7 +568,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(LaberintoInterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
