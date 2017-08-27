@@ -1,14 +1,10 @@
 
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.List;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 
 public class LaberintoInterfaz extends javax.swing.JFrame {
@@ -16,35 +12,55 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     private ArrayList<JLabel> celdas;  //ArrayList de objetos (Pueden ser botones o etiquetas)
     //private ArrayList<JButton> celdas; <<-- Botones (actual etiquetas)
     private int indice=0;
-    
+    private int control=0;
+    private int inicio=0;
+
 
     public LaberintoInterfaz() {
 
         initComponents();
         this.setLocationRelativeTo(null);
         celdas= new ArrayList<>();
-        indice=0; // indice del arraylist
+        indice=0;
+     
+// indice del arraylist
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        update = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        editar = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Actualizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/actualizar.png"))); // NOI18N
+        update.setBorder(null);
+        update.setBorderPainted(false);
+        update.setContentAreaFilled(false);
+        update.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                updateActionPerformed(evt);
             }
         });
 
         panel.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(panel);
+
+        jLabel1.setFont(new java.awt.Font("Vivaldi", 0, 36)); // NOI18N
+        jLabel1.setText("Mapa");
+
+        editar.setText("Editar");
+        editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,20 +68,31 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(editar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(187, 187, 187)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(editar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -73,7 +100,8 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
         
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        inicio=0;
         int filas;
         int columnas;
         indice=0;
@@ -89,11 +117,11 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
         for(int i=0;i<((filas)*(columnas));i++){
             String cadena=archivo.getCadena();
             JLabel etiqueta=new JLabel("");
+               
             MouseListener ml=new MouseListener(){
                 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-
                     throw new UnsupportedOperationException("Not supported yet.");
                 }
 
@@ -118,24 +146,28 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                 }
 
             };
+
             //JButton etiqueta=new JButton(""); //JLabel
             //JButton etiqueta=new JButton(""+cadena.charAt(indice));
             
             etiqueta.setOpaque(true);
 
             if(cadena.charAt(indice)=='0'){
-                
+
                 etiqueta.setBackground(new Color(77,58,58));
                 etiqueta.setToolTipText("mountain");//wall
+                
+                if(control==1){
                 etiqueta.addMouseListener(new MouseAdapter(){  
-                    int magia=1;
+                    int magia=1;   
                 public void mouseClicked(MouseEvent e){
-                    
                     switch(magia){
                     case 0:
+
                        etiqueta.setBackground(new Color(77,58,58));
                        etiqueta.setToolTipText("mountain");//wall
                        magia++;
+
                        break;
                     case 1:
                        etiqueta.setBackground(new Color(250,191,143));
@@ -159,13 +191,40 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                        break;
                     }
                 }
+                
                 }); 
-
+                }else{
+                    etiqueta.addMouseListener(new MouseAdapter(){
+                    public void mouseClicked(MouseEvent e){
+                    int aux=0;
+                    if(inicio==0){
+                        etiqueta.setText("I,V");
+                        inicio=1;
+                    }else if(inicio==1){
+                        
+                        String data=etiqueta.getText();
+                        if(data==""){
+                           etiqueta.setText("V"); 
+                        } 
+                        if(data=="V"){
+                            
+                        }
+                    }
+                }
+                
+                });
+                    
+                }
+               
+                
             }else if(cadena.charAt(indice)=='1'){
+
                 etiqueta.setBackground(new Color(250,191,143));
                 etiqueta.setToolTipText("land"); //road
+                 if(control==1){
                 etiqueta.addMouseListener(new MouseAdapter(){  
                     int magia=2;
+           
                 public void mouseClicked(MouseEvent e){
                     
                     switch(magia){
@@ -197,12 +256,33 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     }
                 }
                 }); 
+            }else{
+                    etiqueta.addMouseListener(new MouseAdapter(){
+                    public void mouseClicked(MouseEvent e){
 
-
+                    if(inicio==0){
+                        etiqueta.setText("I,V");
+                        inicio=1;
+                    }else if(inicio==1){
+                        
+                        String data=etiqueta.getText();
+                        if(data==""){
+                           etiqueta.setText("V"); 
+                        } 
+                        if(data=="V"){
+                            
+                        }
+                    }
+                }
+                
+                });
+                 }
                 
             }else if(cadena.charAt(indice)=='2'){
+
                 etiqueta.setBackground(new Color(0,175,255));
                 etiqueta.setToolTipText("water"); 
+                 if(control==1){
                 etiqueta.addMouseListener(new MouseAdapter(){  
                     int magia=3;
                 public void mouseClicked(MouseEvent e){
@@ -236,12 +316,32 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     }
                 }
                 }); 
-
-
+                 }else{
+                     etiqueta.addMouseListener(new MouseAdapter(){
+                    public void mouseClicked(MouseEvent e){
+                    if(inicio==0){
+                        etiqueta.setText("I,V");
+                        inicio=1;
+                    }else if(inicio==1){
+                        
+                        String data=etiqueta.getText();
+                        if(data==""){
+                           etiqueta.setText("V"); 
+                        } 
+                        if(data=="V"){
+                            
+                        }
+                    }
+                }
                 
+                });
+                 }
+
             }else if(cadena.charAt(indice)=='3'){
+
                 etiqueta.setBackground(Color.yellow); //255,192,0
                 etiqueta.setToolTipText("sand");
+                 if(control==1){
                 etiqueta.addMouseListener(new MouseAdapter(){  
                     int magia=4;
                 public void mouseClicked(MouseEvent e){
@@ -275,12 +375,34 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     }
                 }
                 }); 
-
+                 }else{
+                     etiqueta.addMouseListener(new MouseAdapter(){
+                    public void mouseClicked(MouseEvent e){
+                    int aux=0;
+                    if(inicio==0){
+                        etiqueta.setText("I,V");
+                        inicio=1;
+                    }else if(inicio==1){
+                        
+                        String data=etiqueta.getText();
+                        if(data==""){
+                           etiqueta.setText("V"); 
+                        } 
+                        if(data=="V"){
+                            
+                        }
+                    }
+                }
+                
+                });
+                 }
 
                 
             }else if(cadena.charAt(indice)=='4'){
+
                 etiqueta.setBackground(new Color(150,210,80));
                 etiqueta.setToolTipText("forest");
+                 if(control==1){
                 etiqueta.addMouseListener(new MouseAdapter(){  
                     int magia=0;
                 public void mouseClicked(MouseEvent e){
@@ -314,28 +436,57 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     }
                 }
                 }); 
-
-
+                 }else{
+                     etiqueta.addMouseListener(new MouseAdapter(){
+                    public void mouseClicked(MouseEvent e){
+                    int aux=0;
+                    if(inicio==0){
+                        etiqueta.setText("I,V");
+                        inicio=1;
+                    }else if(inicio==1){
+                        
+                        String data=etiqueta.getText();
+                        if(data==""){
+                           etiqueta.setText("V"); 
+                        } 
+                        if(data=="V"){
+                            
+                        }
+                    }
+                }
                 
+                });
+                 }
             }
-
             panel.add(etiqueta);
             celdas.add(etiqueta);
             indice++;
             panel.updateUI();
-            
         }
-        
-        
-        
+
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Error al crear el terreno!\n Colocaste un salto de mas o un valor mal");
         }
-        
-      
-        
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+                leer cd=new leer();
+                cd.leer();
+                if(editar.isSelected()==true){
+                             control=1;
+
+                }
+                if(editar.isSelected()==false){
+                             control=0;
+                             inicio=0;
+                             System.out.println(cd.getCadena());
+                             JOptionPane.showMessageDialog(null,"Mapa actualizado!");
+
+                }
+                update.doClick();
+                   // TODO add your handling code here:
+    }//GEN-LAST:event_editarActionPerformed
 
         String Tipo="";
     public String mouseClicked(MouseEvent evento) {
@@ -375,13 +526,20 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LaberintoInterfaz().setVisible(true);
+                
+
             }
         });
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox editar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panel;
+    private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }
