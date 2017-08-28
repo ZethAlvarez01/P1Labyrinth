@@ -483,48 +483,184 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                 update.doClick();
                    // TODO add your handling code here:
     }//GEN-LAST:event_editarActionPerformed
-
+    // El movimiento se ejecuta despues de soltar la tecla de direccion
     private void panelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelKeyReleased
-        String auxup="NULL";
-        String auxdown="NULL";
+        String auxup="NULL";        //Variables para ayudar a determinar la
+        String auxdown="NULL";      //validez del movimeinto
         String auxright="NULL";
         String auxleft="NULL";
-        int decisiones=0;
-        if (posini>columnas-1){
+        int decisiones=0;           //Variable para determinar si hay una decision
+        if (posini>columnas-1){     //Limite superior
             auxup = celdas.get(posini-columnas).getToolTipText();
         }
-        if (posini<(columnas*(filas-1)-1)){
+        if (posini<=(columnas*(filas-1)-1)){  //Limite inferior
             auxdown = celdas.get(posini+columnas).getToolTipText();
         }
-        if (posini%(columnas-1)!=0){
+        if ((posini%columnas)+1!=columnas){    //Limite derecho
             auxright = celdas.get(posini+1).getToolTipText();
         }
-        if (posini%(columnas)!=0){
+        if (posini%(columnas)!=0){      //Limite izquierdo
             auxleft = celdas.get(posini-1).getToolTipText();
         }
-        if (evt.getKeyCode()==KeyEvent.VK_RIGHT){
+        if (evt.getKeyCode()==KeyEvent.VK_RIGHT){ //Movimiento Derecha
             if (auxright!="NULL"&&auxright!="mountain"){
                 JLabel anterior = celdas.get(posini);
-                anterior.setText(anterior.getText().replace("X", "")+"V");
+                if (anterior.getText().contains("V")){
+                    anterior.setText(anterior.getText().replace("X", ""));
+                } else{
+                    anterior.setText(anterior.getText().replace("X", "")+"V");
+                }
                 celdas.set(posini++, anterior);
                 auxup="NULL";
                 auxdown="NULL";
                 auxright="NULL";
                 if (posini>columnas-1){
+                    //Determina si hay una decision
                     auxup = celdas.get(posini-columnas).getToolTipText();
                     decisiones=(auxup!="mountain")?decisiones+1:decisiones;
                 }
-                if (posini<(columnas*(filas-1)-1)){
+                if (posini<=(columnas*(filas-1)-1)){
+                    //Determina si hay una decision
                     auxdown = celdas.get(posini+columnas).getToolTipText();
                     decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
                 }
-                if (posini%(columnas-1)!=0){
+                if ((posini%columnas)+1!=columnas){
+                    //Determina si hay una decision
                     auxright = celdas.get(posini+1).getToolTipText();
                     decisiones=(auxright!="mountain")?decisiones+1:decisiones;
                 }
                 if (decisiones>1){
                     JLabel actual = celdas.get(posini);
-                    actual.setText(actual.getText()+"OX");
+                    if (actual.getText().contains("O")){
+                        actual.setText(actual.getText()+"X");
+                    }else{
+                        actual.setText(actual.getText()+"OX");
+                    }
+                    celdas.set(posini, actual);
+                }else{
+                    JLabel actual = celdas.get(posini);
+                    actual.setText(actual.getText()+"X");
+                    celdas.set(posini, actual);
+                }
+            }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
+        }else if (evt.getKeyCode()==KeyEvent.VK_LEFT){ //Movimiento izquierda
+            if (auxleft!="NULL"&&auxleft!="mountain"){
+                JLabel anterior = celdas.get(posini);
+                if (anterior.getText().contains("V")){
+                    anterior.setText(anterior.getText().replace("X", ""));
+                } else{
+                    anterior.setText(anterior.getText().replace("X", "")+"V");
+                }
+                celdas.set(posini--, anterior);
+                auxup="NULL";
+                auxdown="NULL";
+                auxleft="NULL";
+                if (posini>columnas-1){
+                    //Determina si hay una decision
+                    auxup = celdas.get(posini-columnas).getToolTipText();
+                    decisiones=(auxup!="mountain")?decisiones+1:decisiones;
+                }
+                if (posini<=(columnas*(filas-1)-1)){
+                    //Determina si hay una decision
+                    auxdown = celdas.get(posini+columnas).getToolTipText();
+                    decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
+                }
+                if (posini%(columnas)!=0){
+                    //Determina si hay una decision
+                    auxleft = celdas.get(posini-1).getToolTipText();
+                    decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
+                }
+                if (decisiones>1){
+                    JLabel actual = celdas.get(posini);
+                    if (actual.getText().contains("O")){
+                        actual.setText(actual.getText()+"X");
+                    }else{
+                        actual.setText(actual.getText()+"OX");
+                    }
+                    celdas.set(posini, actual);
+                }else{
+                    JLabel actual = celdas.get(posini);
+                    actual.setText(actual.getText()+"X");
+                    celdas.set(posini, actual);
+                }
+            }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
+        }else if (evt.getKeyCode()==KeyEvent.VK_UP){ //Movimiento arriba
+            if (auxup!="NULL"&&auxup!="mountain"){
+                JLabel anterior = celdas.get(posini);
+                if (anterior.getText().contains("V")){
+                    anterior.setText(anterior.getText().replace("X", ""));
+                } else{
+                    anterior.setText(anterior.getText().replace("X", "")+"V");
+                }
+                celdas.set(posini, anterior);
+                posini=posini-15;
+                auxup="NULL";
+                auxright="NULL";
+                auxleft="NULL";
+                if (posini>columnas-1){
+                    //Determina si hay una decision
+                    auxup = celdas.get(posini-columnas).getToolTipText();
+                    decisiones=(auxup!="mountain")?decisiones+1:decisiones;
+                }
+                if ((posini%columnas)+1!=columnas){
+                    //Determina si hay una decision
+                    auxright = celdas.get(posini+1).getToolTipText();
+                    decisiones=(auxright!="mountain")?decisiones+1:decisiones;
+                }
+                if (posini%(columnas)!=0){
+                    //Determina si hay una decision
+                    auxleft = celdas.get(posini-1).getToolTipText();
+                    decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
+                }
+                if (decisiones>1){
+                    JLabel actual = celdas.get(posini);
+                    if (actual.getText().contains("O")){
+                        actual.setText(actual.getText()+"X");
+                    }else{
+                        actual.setText(actual.getText()+"OX");
+                    }
+                    celdas.set(posini, actual);
+                }else{
+                    JLabel actual = celdas.get(posini);
+                    actual.setText(actual.getText()+"X");
+                    celdas.set(posini, actual);
+                }
+            }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
+        }else if (evt.getKeyCode()==KeyEvent.VK_DOWN){ //Movimiento abajo
+            if (auxdown!="NULL"&&auxdown!="mountain"){
+                JLabel anterior = celdas.get(posini);
+                if (anterior.getText().contains("V")){
+                    anterior.setText(anterior.getText().replace("X", ""));
+                } else{
+                    anterior.setText(anterior.getText().replace("X", "")+"V");
+                }
+                celdas.set(posini, anterior);
+                posini=posini+15;
+                auxdown="NULL";
+                auxright="NULL";
+                auxleft="NULL";
+                if (posini<=(columnas*(filas-1)-1)){
+                    //Determina si hay una decision
+                    auxdown = celdas.get(posini+columnas).getToolTipText();
+                    decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
+                }
+                if ((posini%columnas)+1!=columnas){
+                    //Determina si hay una decision
+                    auxright = celdas.get(posini+1).getToolTipText();
+                    decisiones=(auxright!="mountain")?decisiones+1:decisiones;
+                }
+                if (posini%(columnas)!=0){
+                    //Determina si hay una decision
+                    auxleft = celdas.get(posini-1).getToolTipText();
+                    decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
+                }
+                if (decisiones>1){
+                    JLabel actual = celdas.get(posini);
+                    if (actual.getText().contains("O")){
+                        actual.setText(actual.getText()+"X");
+                    }else{
+                        actual.setText(actual.getText()+"OX");
+                    }
                     celdas.set(posini, actual);
                 }else{
                     JLabel actual = celdas.get(posini);
