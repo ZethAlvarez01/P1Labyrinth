@@ -42,6 +42,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
         panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         editar = new javax.swing.JCheckBox();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +57,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             }
         });
 
+        panel.setBackground(new java.awt.Color(0, 0, 0));
         panel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 panelKeyReleased(evt);
@@ -74,6 +76,13 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Jugar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,6 +93,8 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(187, 187, 187)
@@ -102,7 +113,9 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(editar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(editar)
+                            .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                 .addContainerGap())
@@ -118,7 +131,9 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
         indice=0;
         posfin=0;
         posini=0;
-
+        for (int i=0;i<(filas*columnas);i++){
+            celdas.get(i).setVisible(false);
+        }
         leer archivo=new leer(); //nueva clase archivo
         archivo.leer(); //lee el archivo
         System.out.println(filas=archivo.getcol());
@@ -506,6 +521,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
         if (evt.getKeyCode()==KeyEvent.VK_RIGHT){ //Movimiento Derecha
             if (auxright!="NULL"&&auxright!="mountain"){
                 JLabel anterior = celdas.get(posini);
+                celdas.get(posini).setOpaque(true);
                 if (anterior.getText().contains("V")){
                     anterior.setText(anterior.getText().replace("X", ""));
                 } else{
@@ -519,16 +535,19 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     //Determina si hay una decision
                     auxup = celdas.get(posini-columnas).getToolTipText();
                     decisiones=(auxup!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini-15).setVisible(true);
                 }
                 if (posini<=(columnas*(filas-1)-1)){
                     //Determina si hay una decision
                     auxdown = celdas.get(posini+columnas).getToolTipText();
                     decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini+15).setVisible(true);
                 }
                 if ((posini%columnas)+1!=columnas){
                     //Determina si hay una decision
                     auxright = celdas.get(posini+1).getToolTipText();
                     decisiones=(auxright!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini+1).setVisible(true);
                 }
                 if (decisiones>1){
                     JLabel actual = celdas.get(posini);
@@ -570,16 +589,19 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     //Determina si hay una decision
                     auxup = celdas.get(posini-columnas).getToolTipText();
                     decisiones=(auxup!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini-15).setVisible(true);
                 }
                 if (posini<=(columnas*(filas-1)-1)){
                     //Determina si hay una decision
                     auxdown = celdas.get(posini+columnas).getToolTipText();
                     decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini+15).setVisible(true);
                 }
                 if (posini%(columnas)!=0){
                     //Determina si hay una decision
                     auxleft = celdas.get(posini-1).getToolTipText();
                     decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini-1).setVisible(true);
                 }
 
                 if (decisiones>1){
@@ -625,16 +647,19 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     //Determina si hay una decision
                     auxup = celdas.get(posini-columnas).getToolTipText();
                     decisiones=(auxup!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini-15).setVisible(true);
                 }
                 if ((posini%columnas)+1!=columnas){
                     //Determina si hay una decision
                     auxright = celdas.get(posini+1).getToolTipText();
                     decisiones=(auxright!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini+1).setVisible(true);
                 }
                 if (posini%(columnas)!=0){
                     //Determina si hay una decision
                     auxleft = celdas.get(posini-1).getToolTipText();
                     decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini-1).setVisible(true);
                 }
                 if (decisiones>1){
                     JLabel actual = celdas.get(posini);
@@ -678,16 +703,19 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                     //Determina si hay una decision
                     auxdown = celdas.get(posini+columnas).getToolTipText();
                     decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini+15).setVisible(true);
                 }
                 if ((posini%columnas)+1!=columnas){
                     //Determina si hay una decision
                     auxright = celdas.get(posini+1).getToolTipText();
                     decisiones=(auxright!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini+1).setVisible(true);
                 }
                 if (posini%(columnas)!=0){
                     //Determina si hay una decision
                     auxleft = celdas.get(posini-1).getToolTipText();
                     decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
+                    celdas.get(posini-1).setVisible(true);
                 }
                 if (decisiones>1){
                     JLabel actual = celdas.get(posini);
@@ -715,6 +743,32 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
         }else{}
     }//GEN-LAST:event_panelKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int i = 0;
+        if (inicio!=0 && fin!=0){
+            for (i=0;i<(filas*columnas);i++){
+                celdas.get(i).setVisible(false);
+            }
+            celdas.get(posini).setVisible(true);
+            if (posini>columnas-1){     //Limite superior
+                celdas.get(posini-15).setVisible(true);
+            }
+            if (posini<=(columnas*(filas-1)-1)){  //Limite inferior
+                celdas.get(posini+15).setVisible(true);
+            }
+            if ((posini%columnas)+1!=columnas){    //Limite derecho
+                celdas.get(posini+1).setVisible(true);
+            }
+            if (posini%(columnas)!=0){      //Limite izquierdo
+                celdas.get(posini-1).setVisible(true);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"No haz definido un punto de partida o fin");
+        }
+        panel.requestFocusInWindow();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     String Tipo="";
     public String mouseClicked(MouseEvent evento) {
@@ -765,6 +819,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox editar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panel;

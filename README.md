@@ -9,8 +9,10 @@ Por hacer:
 - [x] Indicar inicio/fin.
 - [x] Movimiento con flechas.
 - [x] Anunciar fin del juego.
-- [ ] Oscurecer mapa.
+- [x] Oscurecer mapa.
 - [ ] Implementar arboles.
+- [ ] Implementar personajes
+- [ ] Editar el movimiento del mapa acorde a personajes.
 
 Notas:
 - Revisar actualizacion de mapa.
