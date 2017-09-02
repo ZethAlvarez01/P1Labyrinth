@@ -11,8 +11,9 @@ Por hacer:
 - [x] Anunciar fin del juego.
 - [x] Oscurecer mapa.
 - [ ] Implementar arboles.
-- [ ] Implementar personajes
+- [x] Implementar personajes
 - [ ] Editar el movimiento del mapa acorde a personajes.
 
 Notas:
 - Revisar actualizacion de mapa.
+- Personajes agregados pero falta la interfaz de seleccion de estos.

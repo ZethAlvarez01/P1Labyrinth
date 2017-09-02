@@ -22,6 +22,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     private int posini=0;
     private int filas;
     private int columnas;
+    private Personaje p;
 
     public LaberintoInterfaz() {
 
@@ -43,6 +44,8 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         editar = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
+        txtPuntos = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +86,17 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             }
         });
 
+        txtPuntos.setEditable(false);
+        txtPuntos.setText("0");
+        txtPuntos.setName(""); // NOI18N
+        txtPuntos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPuntosActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Puntos:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,7 +111,11 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(187, 187, 187)
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -106,18 +124,25 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(editar)
                             .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))))
+                        .addGap(18, 18, 18)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -501,7 +526,66 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_editarActionPerformed
     // El movimiento se ejecuta despues de soltar la tecla de direccion
     private void panelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelKeyReleased
-        String auxup="NULL";        //Variables para ayudar a determinar la
+        moverPersonaje(evt,p);
+        txtPuntos.setText(p.getPuntos()+"");
+    }//GEN-LAST:event_panelKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int i = 0;
+        if (inicio!=0 && fin!=0){
+            for (i=0;i<(filas*columnas);i++){
+                celdas.get(i).setVisible(false);
+            }
+            celdas.get(posini).setVisible(true);
+            if (posini>columnas-1){     //Limite superior
+                celdas.get(posini-15).setVisible(true);
+            }
+            if (posini<=(columnas*(filas-1)-1)){  //Limite inferior
+                celdas.get(posini+15).setVisible(true);
+            }
+            if ((posini%columnas)+1!=columnas){    //Limite derecho
+                celdas.get(posini+1).setVisible(true);
+            }
+            if (posini%(columnas)!=0){      //Limite izquierdo
+                celdas.get(posini-1).setVisible(true);
+            }
+            //***************ATENCION*******************
+            /*
+            No es necesario hacer extensiones de la clase, esta es la forma de
+            declarar personajes, esto ya se podria poner dentro de un boton
+            basado en una checkbox, lo deje aqui solo como proposito de ejemplo
+            */
+            int[] ejemplo = {10000,1,1,1,1}; //Costos{mountain,land,water,sand,forest}
+            p = new Personaje(10000,ejemplo); //Parametros:PuntosAGastar,Costos
+            txtPuntos.setText(p.getPuntos()+"");//Textbox del puntaje
+            
+            //***************ATENCION*******************
+        }else{
+            JOptionPane.showMessageDialog(null,"No haz definido un punto de partida o fin");
+        }
+        panel.requestFocusInWindow();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtPuntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPuntosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPuntosActionPerformed
+
+    String Tipo="";
+    public String mouseClicked(MouseEvent evento) {
+        JOptionPane.showMessageDialog(null,"Ya quedo");
+        
+        return Tipo;
+    }
+    
+    /*
+    Metodo para movimiento, es necesario que sea utilizado dentro de un evento
+    de Precionar teclas, de esta forma puede usar la variable del evento para 
+    poder hacer los movimientos, tambien resibe un personaje para que pueda
+    validad los moviminetos del mismo.
+    */
+    public void moverPersonaje(KeyEvent evt, Personaje p){
+    String auxup="NULL";        //Variables para ayudar a determinar la
         String auxdown="NULL";      //validez del movimeinto
         String auxright="NULL";
         String auxleft="NULL";
@@ -519,7 +603,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             auxleft = celdas.get(posini-1).getToolTipText();
         }
         if (evt.getKeyCode()==KeyEvent.VK_RIGHT){ //Movimiento Derecha
-            if (auxright!="NULL"&&auxright!="mountain"){
+            if (auxright!="NULL" && p.validar(auxright)==true){ //Validacion de movimiento para personaje
                 JLabel anterior = celdas.get(posini);
                 celdas.get(posini).setOpaque(true);
                 if (anterior.getText().contains("V")){
@@ -574,7 +658,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                 }
             }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
         }else if (evt.getKeyCode()==KeyEvent.VK_LEFT){ //Movimiento izquierda
-            if (auxleft!="NULL"&&auxleft!="mountain"){
+            if (auxleft!="NULL" && p.validar(auxleft)==true){ //Validacion de movimiento para personaje
                 JLabel anterior = celdas.get(posini);
                 if (anterior.getText().contains("V")){
                     anterior.setText(anterior.getText().replace("X", ""));
@@ -631,7 +715,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                 }
             }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
         }else if (evt.getKeyCode()==KeyEvent.VK_UP){ //Movimiento arriba
-            if (auxup!="NULL"&&auxup!="mountain"){
+            if (auxup!="NULL" && p.validar(auxup)==true){ //Validacion de movimiento para personaje
                 JLabel anterior = celdas.get(posini);
                 if (anterior.getText().contains("V")){
                     anterior.setText(anterior.getText().replace("X", ""));
@@ -686,7 +770,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                 }
             }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
         }else if (evt.getKeyCode()==KeyEvent.VK_DOWN){ //Movimiento abajo
-            if (auxdown!="NULL"&&auxdown!="mountain"){
+            if (auxdown!="NULL" && p.validar(auxdown)==true){ //Validacion de movimiento para personaje
                 JLabel anterior = celdas.get(posini);
                 if (anterior.getText().contains("V")){
                     anterior.setText(anterior.getText().replace("X", ""));
@@ -742,39 +826,6 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
                 }
             }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
         }else{}
-    }//GEN-LAST:event_panelKeyReleased
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int i = 0;
-        if (inicio!=0 && fin!=0){
-            for (i=0;i<(filas*columnas);i++){
-                celdas.get(i).setVisible(false);
-            }
-            celdas.get(posini).setVisible(true);
-            if (posini>columnas-1){     //Limite superior
-                celdas.get(posini-15).setVisible(true);
-            }
-            if (posini<=(columnas*(filas-1)-1)){  //Limite inferior
-                celdas.get(posini+15).setVisible(true);
-            }
-            if ((posini%columnas)+1!=columnas){    //Limite derecho
-                celdas.get(posini+1).setVisible(true);
-            }
-            if (posini%(columnas)!=0){      //Limite izquierdo
-                celdas.get(posini-1).setVisible(true);
-            }
-        }else{
-            JOptionPane.showMessageDialog(null,"No haz definido un punto de partida o fin");
-        }
-        panel.requestFocusInWindow();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    String Tipo="";
-    public String mouseClicked(MouseEvent evento) {
-        JOptionPane.showMessageDialog(null,"Ya quedo");
-        
-        return Tipo;
     }
     
     /**
@@ -821,8 +872,10 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     private javax.swing.JCheckBox editar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panel;
+    private javax.swing.JTextField txtPuntos;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }
