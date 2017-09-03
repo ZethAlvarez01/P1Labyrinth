@@ -12,8 +12,7 @@ Por hacer:
 - [x] Oscurecer mapa.
 - [ ] Implementar arboles.
 - [x] Implementar personajes
-- [ ] Editar el movimiento del mapa acorde a personajes.
+- [x] Editar el movimiento del mapa acorde a personajes.
 
 Notas:
 - Revisar actualizacion de mapa.
-- Personajes agregados pero falta la interfaz de seleccion de estos.

@@ -23,6 +23,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     private int filas;
     private int columnas;
     private Personaje p;
+    private int personaje; 
 
     public LaberintoInterfaz() {
 
@@ -46,6 +47,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         txtPuntos = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        cbPersonajes = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,26 +99,30 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
 
         jLabel2.setText("Puntos:");
 
+        cbPersonajes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecciona Personaje--", "Humano", "Mono", "Pulpo", "Sasquatch" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(editar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(181, 181, 181)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cbPersonajes, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(97, 97, 97)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,26 +130,23 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(editar)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(editar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))))
-                        .addGap(18, 18, 18)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton1)
+                    .addComponent(cbPersonajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -156,6 +159,8 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
         indice=0;
         posfin=0;
         posini=0;
+        personaje=0;
+        txtPuntos.setText(0+"");
         for (int i=0;i<(filas*columnas);i++){
             celdas.get(i).setVisible(false);
         }
@@ -532,7 +537,8 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int i = 0;
-        if (inicio!=0 && fin!=0){
+        setPersonaje(cbPersonajes.getSelectedItem().toString());
+        if (inicio!=0 && fin!=0 && personaje!=0){
             for (i=0;i<(filas*columnas);i++){
                 celdas.get(i).setVisible(false);
             }
@@ -549,19 +555,11 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
             if (posini%(columnas)!=0){      //Limite izquierdo
                 celdas.get(posini-1).setVisible(true);
             }
-            //***************ATENCION*******************
-            /*
-            No es necesario hacer extensiones de la clase, esta es la forma de
-            declarar personajes, esto ya se podria poner dentro de un boton
-            basado en una checkbox, lo deje aqui solo como proposito de ejemplo
-            */
-            int[] ejemplo = {10000,1,1,1,1}; //Costos{mountain,land,water,sand,forest}
-            p = new Personaje(10000,ejemplo); //Parametros:PuntosAGastar,Costos
-            txtPuntos.setText(p.getPuntos()+"");//Textbox del puntaje
-            
-            //***************ATENCION*******************
-        }else{
+            setPersonaje(cbPersonajes.getSelectedItem().toString());
+        }else if (inicio==0 && fin==0){
             JOptionPane.showMessageDialog(null,"No haz definido un punto de partida o fin");
+        }else{
+            JOptionPane.showMessageDialog(null,"No haz seleccionado un personaje");
         }
         panel.requestFocusInWindow();
         // TODO add your handling code here:
@@ -579,253 +577,307 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     }
     
     /*
+    Metodo para crear a los personajes requiere que se le mande el nombre del
+    personaje 
+    */
+    public void setPersonaje(String nombre){
+        int[] costos=new int[5];
+        int puntos;
+        if (nombre=="Humano"){
+            costos[0]=1000000;  // Costo Mountain
+            costos[1]=1;        // Costo Land
+            costos[2]=2;        // Costo Water
+            costos[3]=3;        // Costo Sand
+            costos[4]=4;        // Costo Forest
+            puntos=200;         // Puntos a usar
+            p = new Personaje(puntos,costos); 
+            txtPuntos.setText(p.getPuntos()+"");//Textbox del puntaje
+            personaje=1;        // Bandera para personaje
+        }else if (nombre=="Mono"){
+            costos[0]=1000000;
+            costos[1]=2;
+            costos[2]=4;
+            costos[3]=3;
+            costos[4]=1;
+            puntos=200;
+            p = new Personaje(puntos,costos); 
+            txtPuntos.setText(p.getPuntos()+"");
+            personaje=1;
+        }else if (nombre=="Pulpo"){
+            costos[0]=1000000;
+            costos[1]=2;
+            costos[2]=1;
+            costos[3]=1000000;
+            costos[4]=3;
+            puntos=200;
+            p = new Personaje(puntos,costos); 
+            txtPuntos.setText(p.getPuntos()+"");
+            personaje=1;
+        }else if (nombre=="Sasquatch"){
+            costos[0]=15;
+            costos[1]=4;
+            costos[2]=1000000;
+            costos[3]=1000000;
+            costos[4]=4;
+            puntos=200;
+            p = new Personaje(puntos,costos); 
+            txtPuntos.setText(p.getPuntos()+"");
+            personaje=1;
+        }else{
+            // Si no es ningun personaje simplemente no hace nada
+        }
+    }
+    
+    /*
     Metodo para movimiento, es necesario que sea utilizado dentro de un evento
     de Precionar teclas, de esta forma puede usar la variable del evento para 
     poder hacer los movimientos, tambien resibe un personaje para que pueda
     validad los moviminetos del mismo.
     */
     public void moverPersonaje(KeyEvent evt, Personaje p){
-    String auxup="NULL";        //Variables para ayudar a determinar la
-        String auxdown="NULL";      //validez del movimeinto
-        String auxright="NULL";
-        String auxleft="NULL";
-        int decisiones=0;           //Variable para determinar si hay una decision
-        if (posini>columnas-1){     //Limite superior
-            auxup = celdas.get(posini-columnas).getToolTipText();
-        }
-        if (posini<=(columnas*(filas-1)-1)){  //Limite inferior
-            auxdown = celdas.get(posini+columnas).getToolTipText();
-        }
-        if ((posini%columnas)+1!=columnas){    //Limite derecho
-            auxright = celdas.get(posini+1).getToolTipText();
-        }
-        if (posini%(columnas)!=0){      //Limite izquierdo
-            auxleft = celdas.get(posini-1).getToolTipText();
-        }
-        if (evt.getKeyCode()==KeyEvent.VK_RIGHT){ //Movimiento Derecha
-            if (auxright!="NULL" && p.validar(auxright)==true){ //Validacion de movimiento para personaje
-                JLabel anterior = celdas.get(posini);
-                celdas.get(posini).setOpaque(true);
-                if (anterior.getText().contains("V")){
-                    anterior.setText(anterior.getText().replace("X", ""));
-                } else{
-                    anterior.setText(anterior.getText().replace("X", "")+"V");
-                }
-                celdas.set(posini++, anterior);
-                auxup="NULL";
-                auxdown="NULL";
-                auxright="NULL";
-                if (posini>columnas-1){
-                    //Determina si hay una decision
-                    auxup = celdas.get(posini-columnas).getToolTipText();
-                    decisiones=(auxup!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini-15).setVisible(true);
-                }
-                if (posini<=(columnas*(filas-1)-1)){
-                    //Determina si hay una decision
-                    auxdown = celdas.get(posini+columnas).getToolTipText();
-                    decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini+15).setVisible(true);
-                }
-                if ((posini%columnas)+1!=columnas){
-                    //Determina si hay una decision
-                    auxright = celdas.get(posini+1).getToolTipText();
-                    decisiones=(auxright!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini+1).setVisible(true);
-                }
-                if (decisiones>1){
-                    JLabel actual = celdas.get(posini);
-                    if (actual.getText().contains("O")){
-                        actual.setText(actual.getText()+"X");
-                    if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
+        if (personaje==1){          //Si no hay personaje definido no hace nada
+            String auxup="NULL";        //Variables para ayudar a determinar la
+            String auxdown="NULL";      //validez del movimeinto
+            String auxright="NULL";
+            String auxleft="NULL";
+            int decisiones=0;           //Variable para determinar si hay una decision
+            if (posini>columnas-1){     //Limite superior
+                auxup = celdas.get(posini-columnas).getToolTipText();
+            }
+            if (posini<=(columnas*(filas-1)-1)){  //Limite inferior
+                auxdown = celdas.get(posini+columnas).getToolTipText();
+            }
+            if ((posini%columnas)+1!=columnas){    //Limite derecho
+                auxright = celdas.get(posini+1).getToolTipText();
+            }
+            if (posini%(columnas)!=0){      //Limite izquierdo
+                auxleft = celdas.get(posini-1).getToolTipText();
+            }
+            if (evt.getKeyCode()==KeyEvent.VK_RIGHT){ //Movimiento Derecha
+                if (auxright!="NULL" && p.validar(auxright)==true){ //Validacion de movimiento para personaje
+                    JLabel anterior = celdas.get(posini);
+                    celdas.get(posini).setOpaque(true);
+                    if (anterior.getText().contains("V")){
+                        anterior.setText(anterior.getText().replace("X", ""));
+                    } else{
+                        anterior.setText(anterior.getText().replace("X", "")+"V");
                     }
+                    celdas.set(posini++, anterior);
+                    auxup="NULL";
+                    auxdown="NULL";
+                    auxright="NULL";
+                    if (posini>columnas-1){
+                        //Determina si hay una decision
+                        auxup = celdas.get(posini-columnas).getToolTipText();
+                        decisiones=(auxup!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini-15).setVisible(true);
+                    }
+                    if (posini<=(columnas*(filas-1)-1)){
+                        //Determina si hay una decision
+                        auxdown = celdas.get(posini+columnas).getToolTipText();
+                        decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini+15).setVisible(true);
+                    }
+                    if ((posini%columnas)+1!=columnas){
+                        //Determina si hay una decision
+                        auxright = celdas.get(posini+1).getToolTipText();
+                        decisiones=(auxright!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini+1).setVisible(true);
+                    }
+                    if (decisiones>1){
+                        JLabel actual = celdas.get(posini);
+                        if (actual.getText().contains("O")){
+                            actual.setText(actual.getText()+"X");
+                        if(actual.getText().contains("F")){
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
+                        }else{
+                            actual.setText(actual.getText()+"OX");
+                            if(actual.getText().contains("F")){
+                                JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                            }
+                        }
+
+                        celdas.set(posini, actual);
                     }else{
-                        actual.setText(actual.getText()+"OX");
+                        JLabel actual = celdas.get(posini);
+                        actual.setText(actual.getText()+"X");
+                        celdas.set(posini, actual);
                         if(actual.getText().contains("F")){
                             JOptionPane.showMessageDialog(null,"Objetivo completado!");
                         }
                     }
-
-                    celdas.set(posini, actual);
-                }else{
-                    JLabel actual = celdas.get(posini);
-                    actual.setText(actual.getText()+"X");
-                    celdas.set(posini, actual);
-                    if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
+            }else if (evt.getKeyCode()==KeyEvent.VK_LEFT){ //Movimiento izquierda
+                if (auxleft!="NULL" && p.validar(auxleft)==true){ //Validacion de movimiento para personaje
+                    JLabel anterior = celdas.get(posini);
+                    if (anterior.getText().contains("V")){
+                        anterior.setText(anterior.getText().replace("X", ""));
+                    } else{
+                        anterior.setText(anterior.getText().replace("X", "")+"V");
                     }
-                }
-            }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
-        }else if (evt.getKeyCode()==KeyEvent.VK_LEFT){ //Movimiento izquierda
-            if (auxleft!="NULL" && p.validar(auxleft)==true){ //Validacion de movimiento para personaje
-                JLabel anterior = celdas.get(posini);
-                if (anterior.getText().contains("V")){
-                    anterior.setText(anterior.getText().replace("X", ""));
-                } else{
-                    anterior.setText(anterior.getText().replace("X", "")+"V");
-                }
-                celdas.set(posini--, anterior);
-                auxup="NULL";
-                auxdown="NULL";
-                auxleft="NULL";
-                if (posini>columnas-1){
-                    //Determina si hay una decision
-                    auxup = celdas.get(posini-columnas).getToolTipText();
-                    decisiones=(auxup!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini-15).setVisible(true);
-                }
-                if (posini<=(columnas*(filas-1)-1)){
-                    //Determina si hay una decision
-                    auxdown = celdas.get(posini+columnas).getToolTipText();
-                    decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini+15).setVisible(true);
-                }
-                if (posini%(columnas)!=0){
-                    //Determina si hay una decision
-                    auxleft = celdas.get(posini-1).getToolTipText();
-                    decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini-1).setVisible(true);
-                }
-
-                if (decisiones>1){
-                    
-                    JLabel actual = celdas.get(posini);
-                    
-                    if (actual.getText().contains("O")){
-                        actual.setText(actual.getText()+"X");
-                                            if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                    celdas.set(posini--, anterior);
+                    auxup="NULL";
+                    auxdown="NULL";
+                    auxleft="NULL";
+                    if (posini>columnas-1){
+                        //Determina si hay una decision
+                        auxup = celdas.get(posini-columnas).getToolTipText();
+                        decisiones=(auxup!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini-15).setVisible(true);
                     }
+                    if (posini<=(columnas*(filas-1)-1)){
+                        //Determina si hay una decision
+                        auxdown = celdas.get(posini+columnas).getToolTipText();
+                        decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini+15).setVisible(true);
+                    }
+                    if (posini%(columnas)!=0){
+                        //Determina si hay una decision
+                        auxleft = celdas.get(posini-1).getToolTipText();
+                        decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini-1).setVisible(true);
+                    }
+
+                    if (decisiones>1){
+
+                        JLabel actual = celdas.get(posini);
+
+                        if (actual.getText().contains("O")){
+                            actual.setText(actual.getText()+"X");
+                                                if(actual.getText().contains("F")){
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
+                        }else{
+                            actual.setText(actual.getText()+"OX");
+                                                if(actual.getText().contains("F")){
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
+                        }
+
+                        celdas.set(posini, actual);
                     }else{
-                        actual.setText(actual.getText()+"OX");
-                                            if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
-                    }
-                    }
-
-                    celdas.set(posini, actual);
-                }else{
-                    JLabel actual = celdas.get(posini);
-                    actual.setText(actual.getText()+"X");
-                    celdas.set(posini, actual);
-                     if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
-                    }
-                }
-            }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
-        }else if (evt.getKeyCode()==KeyEvent.VK_UP){ //Movimiento arriba
-            if (auxup!="NULL" && p.validar(auxup)==true){ //Validacion de movimiento para personaje
-                JLabel anterior = celdas.get(posini);
-                if (anterior.getText().contains("V")){
-                    anterior.setText(anterior.getText().replace("X", ""));
-                } else{
-                    anterior.setText(anterior.getText().replace("X", "")+"V");
-                }
-                celdas.set(posini, anterior);
-                posini=posini-15;
-                auxup="NULL";
-                auxright="NULL";
-                auxleft="NULL";
-                if (posini>columnas-1){
-                    //Determina si hay una decision
-                    auxup = celdas.get(posini-columnas).getToolTipText();
-                    decisiones=(auxup!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini-15).setVisible(true);
-                }
-                if ((posini%columnas)+1!=columnas){
-                    //Determina si hay una decision
-                    auxright = celdas.get(posini+1).getToolTipText();
-                    decisiones=(auxright!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini+1).setVisible(true);
-                }
-                if (posini%(columnas)!=0){
-                    //Determina si hay una decision
-                    auxleft = celdas.get(posini-1).getToolTipText();
-                    decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini-1).setVisible(true);
-                }
-                if (decisiones>1){
-                    JLabel actual = celdas.get(posini);
-                    if (actual.getText().contains("O")){
+                        JLabel actual = celdas.get(posini);
                         actual.setText(actual.getText()+"X");
-                        if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        celdas.set(posini, actual);
+                         if(actual.getText().contains("F")){
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
                     }
+                }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
+            }else if (evt.getKeyCode()==KeyEvent.VK_UP){ //Movimiento arriba
+                if (auxup!="NULL" && p.validar(auxup)==true){ //Validacion de movimiento para personaje
+                    JLabel anterior = celdas.get(posini);
+                    if (anterior.getText().contains("V")){
+                        anterior.setText(anterior.getText().replace("X", ""));
+                    } else{
+                        anterior.setText(anterior.getText().replace("X", "")+"V");
+                    }
+                    celdas.set(posini, anterior);
+                    posini=posini-15;
+                    auxup="NULL";
+                    auxright="NULL";
+                    auxleft="NULL";
+                    if (posini>columnas-1){
+                        //Determina si hay una decision
+                        auxup = celdas.get(posini-columnas).getToolTipText();
+                        decisiones=(auxup!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini-15).setVisible(true);
+                    }
+                    if ((posini%columnas)+1!=columnas){
+                        //Determina si hay una decision
+                        auxright = celdas.get(posini+1).getToolTipText();
+                        decisiones=(auxright!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini+1).setVisible(true);
+                    }
+                    if (posini%(columnas)!=0){
+                        //Determina si hay una decision
+                        auxleft = celdas.get(posini-1).getToolTipText();
+                        decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini-1).setVisible(true);
+                    }
+                    if (decisiones>1){
+                        JLabel actual = celdas.get(posini);
+                        if (actual.getText().contains("O")){
+                            actual.setText(actual.getText()+"X");
+                            if(actual.getText().contains("F")){
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
+                        }else{
+                            actual.setText(actual.getText()+"OX");
+                            if(actual.getText().contains("F")){
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
+                        }
+
+                        celdas.set(posini, actual);
                     }else{
-                        actual.setText(actual.getText()+"OX");
-                        if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
-                    }
-                    }
-
-                    celdas.set(posini, actual);
-                }else{
-                    JLabel actual = celdas.get(posini);
-                    actual.setText(actual.getText()+"X");
-                    celdas.set(posini, actual);
-                    if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
-                    }
-                }
-            }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
-        }else if (evt.getKeyCode()==KeyEvent.VK_DOWN){ //Movimiento abajo
-            if (auxdown!="NULL" && p.validar(auxdown)==true){ //Validacion de movimiento para personaje
-                JLabel anterior = celdas.get(posini);
-                if (anterior.getText().contains("V")){
-                    anterior.setText(anterior.getText().replace("X", ""));
-                } else{
-                    anterior.setText(anterior.getText().replace("X", "")+"V");
-                }
-
-                celdas.set(posini, anterior);
-                posini=posini+15;
-                auxdown="NULL";
-                auxright="NULL";
-                auxleft="NULL";
-                if (posini<=(columnas*(filas-1)-1)){
-                    //Determina si hay una decision
-                    auxdown = celdas.get(posini+columnas).getToolTipText();
-                    decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini+15).setVisible(true);
-                }
-                if ((posini%columnas)+1!=columnas){
-                    //Determina si hay una decision
-                    auxright = celdas.get(posini+1).getToolTipText();
-                    decisiones=(auxright!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini+1).setVisible(true);
-                }
-                if (posini%(columnas)!=0){
-                    //Determina si hay una decision
-                    auxleft = celdas.get(posini-1).getToolTipText();
-                    decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
-                    celdas.get(posini-1).setVisible(true);
-                }
-                if (decisiones>1){
-                    JLabel actual = celdas.get(posini);
-                    if (actual.getText().contains("O")){
+                        JLabel actual = celdas.get(posini);
                         actual.setText(actual.getText()+"X");
+                        celdas.set(posini, actual);
                         if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
                     }
-                    }else{
-                        actual.setText(actual.getText()+"OX");
-                        if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
-                    }
+                }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
+            }else if (evt.getKeyCode()==KeyEvent.VK_DOWN){ //Movimiento abajo
+                if (auxdown!="NULL" && p.validar(auxdown)==true){ //Validacion de movimiento para personaje
+                    JLabel anterior = celdas.get(posini);
+                    if (anterior.getText().contains("V")){
+                        anterior.setText(anterior.getText().replace("X", ""));
+                    } else{
+                        anterior.setText(anterior.getText().replace("X", "")+"V");
                     }
 
-                    celdas.set(posini, actual);
-                }else{
-                    JLabel actual = celdas.get(posini);
-                    actual.setText(actual.getText()+"X");
-                    celdas.set(posini, actual);
-                    if(actual.getText().contains("F")){
-                        JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                    celdas.set(posini, anterior);
+                    posini=posini+15;
+                    auxdown="NULL";
+                    auxright="NULL";
+                    auxleft="NULL";
+                    if (posini<=(columnas*(filas-1)-1)){
+                        //Determina si hay una decision
+                        auxdown = celdas.get(posini+columnas).getToolTipText();
+                        decisiones=(auxdown!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini+15).setVisible(true);
                     }
-                }
-            }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
-        }else{}
+                    if ((posini%columnas)+1!=columnas){
+                        //Determina si hay una decision
+                        auxright = celdas.get(posini+1).getToolTipText();
+                        decisiones=(auxright!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini+1).setVisible(true);
+                    }
+                    if (posini%(columnas)!=0){
+                        //Determina si hay una decision
+                        auxleft = celdas.get(posini-1).getToolTipText();
+                        decisiones=(auxleft!="mountain")?decisiones+1:decisiones;
+                        celdas.get(posini-1).setVisible(true);
+                    }
+                    if (decisiones>1){
+                        JLabel actual = celdas.get(posini);
+                        if (actual.getText().contains("O")){
+                            actual.setText(actual.getText()+"X");
+                            if(actual.getText().contains("F")){
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
+                        }else{
+                            actual.setText(actual.getText()+"OX");
+                            if(actual.getText().contains("F")){
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
+                        }
+
+                        celdas.set(posini, actual);
+                    }else{
+                        JLabel actual = celdas.get(posini);
+                        actual.setText(actual.getText()+"X");
+                        celdas.set(posini, actual);
+                        if(actual.getText().contains("F")){
+                            JOptionPane.showMessageDialog(null,"Objetivo completado!");
+                        }
+                    }
+                }else{JOptionPane.showMessageDialog(null,"Movimiento invalido");}
+            }else{} 
+        }
     }
     
     /**
@@ -869,6 +921,7 @@ public class LaberintoInterfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbPersonajes;
     private javax.swing.JCheckBox editar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
