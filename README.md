@@ -16,3 +16,4 @@ Por hacer:
 
 Notas:
 - Revisar actualizacion de mapa.
+- Para graficar arboles se recomienda ir a www.graphviz.org
