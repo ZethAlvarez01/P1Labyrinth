@@ -17,7 +17,7 @@ public class leer{
        int aux=0;
        
     public void leer(){
-        System.out.println("Hola"); //Imprime un hola chido
+        //System.out.println("Hola"); //Imprime un hola chido
         String direccion="filename.txt"; //Lee el archivo desde la raiz del proyecto
 
         try{
@@ -37,24 +37,24 @@ public class leer{
                 !Si importan los saltos de linea!!!
                 */
                 if((char)terreno=='0' || (char)terreno=='1'|| (char)terreno=='2'|| (char)terreno=='3'|| (char)terreno=='4'){
-                        System.out.print((char)terreno);
+                        //System.out.print((char)terreno);
                         cadena=cadena+(char)terreno;
                         if(aux==0)
                         filas++;
                         terreno=fr.read();
                         
                 }else if((char)terreno=='\n'){
-                    System.out.print("\n");
+                    //System.out.print("\n");
                     aux=1;
                     col++;
                     
                 }
                 terreno=fr.read();
             }
-            System.out.println();
+            //System.out.println();
             fr.close();
         }catch(Exception e){
-            System.out.println("Error");
+            //System.out.println("Error");
         }
     }
     //Gets por que programo orientado a objetos ;) 
